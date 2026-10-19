@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>BTech StudyFlow | Student Dashboard</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <div class="app">
+
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-icon">SF</div>
+        <div>
+          <h2>StudyFlow</h2>
+          <p>BTech Dashboard</p>
+        </div>
+      </div>
+
+      <p class="menu-title">MAIN MENU</p>
+
+      <nav class="nav-menu">
+        <a class="nav-link active" href="#dashboard">⌂ Dashboard</a>
+        <a class="nav-link" href="#tasks">✓ Tasks</a>
+        <a class="nav-link" href="#timetable">▦ Timetable</a>
+        <a class="nav-link" href="#attendance">◉ Attendance</a>
+        <a class="nav-link" href="#exams">✦ Exams</a>
+        <a class="nav-link" href="#focus">◷ Focus Timer</a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="semester-box">
+          <span>🎓</span>
+          <div>
+            <strong>BTech Semester</strong>
+            <p>Keep building daily.</p>
+          </div>
+        </div>
+
+        <button class="theme-button" id="themeButton">
+          <span id="themeIcon">☾</span>
+          <span id="themeText">Dark Mode</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="content" id="dashboard">
+
+      <header class="top-header">
+        <div>
+          <p class="small-title" id="greeting">GOOD EVENING</p>
+          <h1>Hello, <span>Future Engineer</span> 👋</h1>
+          <p class="header-description">
+            Organize your classes, assignments, exams, and coding journey in one place.
+          </p>
+        </div>
+
+        <div class="header-right">
+          <p id="todayDate" class="today-date"></p>
+          <button class="primary-button" id="openTaskModal">
+            <span>+</span> Add Task
+          </button>
+        </div>
+      </header>
+
+      <section class="stats-grid">
+        <div class="stat-card purple-card">
+          <div class="stat-icon">✓</div>
+          <div>
+            <p>Tasks Completed</p>
+            <h2><span id="completedTasks">0</span><small id="totalTasks">/0</small></h2>
+          </div>
+        </div>
+
+        <div class="stat-card blue-card">
+          <div class="stat-icon">◴</div>
+          <div>
+            <p>Pending Tasks</p>
+            <h2 id="pendingTasks">0</h2>
+          </div>
+        </div>
+
+        <div class="stat-card orange-card">
+          <div class="stat-icon">◉</div>
+          <div>
+            <p>Attendance</p>
+            <h2>82<small>%</small></h2>
+          </div>
+        </div>
+
+        <div class="stat-card green-card">
+          <div class="stat-icon">⚡</div>
+          <div>
+            <p>Focus Streak</p>
+            <h2>4 <small>Days</small></h2>
+          </div>
+        </div>
+      </section>
+
+      <section class="main-grid">
+
+        <article class="progress-card">
+          <div class="card-header">
+            <div>
+              <p class="small-title">DAILY PROGRESS</p>
+              <h2>Today's productivity</h2>
+            </div>
+
+            <div class="progress-circle" id="progressPercentage">0%</div>
+          </div>
+
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+
+          <div class="progress-info">
+            <span id="progressText">0 of 0 tasks completed</span>
+            <span>Daily goal: 5 tasks</span>
+          </div>
+
+          <div class="quote-box" id="quoteBox">
+            <span>✦</span>
+            <p>Small progress every day creates big success.</p>
+          </div>
+        </article>
+
+        <article class="next-class-card">
+          <div class="card-header">
+            <div>
+              <p class="small-title">NEXT CLASS</p>
+              <h2>Your next lecture</h2>
+            </div>
+
+            <span class="live-label">TODAY</span>
+          </div>
+
+          <div class="next-class">
+            <div class="subject-icon code-icon">&lt;/&gt;</div>
+
+            <div>
+              <h3>Data Structures</h3>
+              <p>10:00 AM – 11:00 AM</p>
+              <p class="room">Room: C-204 · Prof. Sharma</p>
+            </div>
+          </div>
+
+          <button class="outline-button" id="scrollTimetableButton">
+            View timetable <span>→</span>
+          </button>
+        </article>
+
+      </section>
+
+      <section class="section" id="tasks">
+        <div class="section-header">
+          <div>
+            <p class="small-title">ASSIGNMENTS & STUDY PLAN</p>
+            <h2>My Tasks</h2>
+          </div>
+
+          <button class="text-button" id="openTaskModalSecond">+ Add New Task</button>
+        </div>
+
+        <div class="task-options">
+          <div class="filters">
+            <button class="filter-button active" data-filter="all">All Tasks</button>
+            <button class="filter-button" data-filter="active">Active</button>
+            <button class="filter-button" data-filter="completed">Completed</button>
+          </div>
+
+          <select id="subjectFilter">
+            <option value="all">All Subjects</option>
+            <option value="DSA">DSA</option>
+            <option value="DBMS">DBMS</option>
+            <option value="Operating Systems">Operating Systems</option>
+            <option value="Computer Networks">Computer Networks</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="Programming">Programming</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="task-list" id="taskList"></div>
+
+        <div class="empty-box hidden" id="emptyState">
+          <div class="empty-icon">✓</div>
+          <h3>No tasks found</h3>
+          <p>Add a new study task or change the current filter.</p>
+          <button class="primary-button" id="emptyTaskButton">+ Add Task</button>
+        </div>
+      </section>
+
+      <section class="section" id="timetable">
+        <div class="section-header">
+          <div>
+            <p class="small-title">WEEKLY CLASS SCHEDULE</p>
+            <h2>Today's Timetable</h2>
+          </div>
+
+          <span class="day-label">MONDAY</span>
+        </div>
+
+        <div class="timetable-grid">
+          <div class="time-card">
+            <p>09:00 AM</p>
+            <div class="class-block math-block">
+              <strong>Mathematics</strong>
+              <span>Room A-101</span>
+            </div>
+          </div>
+
+          <div class="time-card">
+            <p>10:00 AM</p>
+            <div class="class-block dsa-block">
+              <strong>Data Structures</strong>
+              <span>Room C-204</span>
+            </div>
+          </div>
+
+          <div class="time-card">
+            <p>11:30 AM</p>
+            <div class="class-block os-block">
+              <strong>Operating Systems</strong>
+              <span>Lab L-2</span>
+            </div>
+          </div>
+
+          <div class="time-card">
+            <p>02:00 PM</p>
+            <div class="class-block dbms-block">
+              <strong>DBMS</strong>
+              <span>Room B-105</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="two-column-section">
+        <article class="attendance-card" id="attendance">
+          <div class="section-header">
+            <div>
+              <p class="small-title">ATTENDANCE TRACKER</p>
+              <h2>Subject attendance</h2>
+            </div>
+          </div>
+
+          <div class="attendance-row">
+            <div>
+              <strong>Data Structures</strong>
+              <p>28 / 32 classes</p>
+            </div>
+            <span class="attendance-good">88%</span>
+          </div>
+
+          <div class="attendance-row">
+            <div>
+              <strong>DBMS</strong>
+              <p>23 / 30 classes</p>
+            </div>
+            <span class="attendance-warning">77%</span>
+          </div>
+
+          <div class="attendance-row">
+            <div>
+              <strong>Operating Systems</strong>
+              <p>25 / 30 classes</p>
+            </div>
+            <span class="attendance-good">83%</span>
+          </div>
+
+          <div class="attendance-row">
+            <div>
+              <strong>Computer Networks</strong>
+              <p>21 / 30 classes</p>
+            </div>
+            <span class="attendance-danger">70%</span>
+          </div>
+        </article>
+
+        <article class="exam-card" id="exams">
+          <div class="section-header">
+            <div>
+              <p class="small-title">UPCOMING EXAMS</p>
+              <h2>Exam countdown</h2>
+            </div>
+          </div>
+
+          <div class="exam-row">
+            <div class="exam-date">
+              <strong>18</strong>
+              <span>OCT</span>
+            </div>
+            <div>
+              <h3>Data Structures Mid-Sem</h3>
+              <p>Arrays, Linked Lists, Stacks</p>
+            </div>
+            <span class="days-left">14 days</span>
+          </div>
+
+          <div class="exam-row">
+            <div class="exam-date purple-date">
+              <strong>22</strong>
+              <span>OCT</span>
+            </div>
+            <div>
+              <h3>DBMS Internal Exam</h3>
+              <p>SQL, ER Model, Normalization</p>
+            </div>
+            <span class="days-left">18 days</span>
+          </div>
+
+          <div class="exam-row">
+            <div class="exam-date orange-date">
+              <strong>29</strong>
+              <span>OCT</span>
+            </div>
+            <div>
+              <h3>Operating Systems</h3>
+              <p>Processes, Threads, Scheduling</p>
+            </div>
+            <span class="days-left">25 days</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="focus-section" id="focus">
+        <div class="focus-card">
+          <p class="small-title">POMODORO FOCUS MODE</p>
+          <h2>Study without distractions</h2>
+          <p>Use a focused 25-minute session. Take a short break after completing it.</p>
+
+          <div class="timer" id="timer">25:00</div>
+
+          <div class="timer-buttons">
+            <button class="primary-button" id="startTimer">Start Focus</button>
+            <button class="secondary-button" id="resetTimer">Reset</button>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <p>© <span id="year"></span> BTech StudyFlow · Build your future, one day at a time.</p>
+      </footer>
+
+    </main>
+  </div>
+
+  <div class="modal hidden" id="taskModal">
+    <div class="modal-content">
+      <button class="close-button" id="closeModal">×</button>
+
+      <p class="small-title">NEW STUDY TASK</p>
+      <h2>Add a Task</h2>
+      <p class="modal-text">Add assignments, revision targets, coding practice, or project work.</p>
+
+      <form id="taskForm">
+        <label for="taskName">Task Name</label>
+        <input
+          id="taskName"
+          type="text"
+          placeholder="Example: Solve 5 DSA array questions"
+          required
+        >
+
+        <div class="form-grid">
+          <div>
+            <label for="taskSubject">Subject</label>
+            <select id="taskSubject">
+              <option value="DSA">DSA</option>
+              <option value="DBMS">DBMS</option>
+              <option value="Operating Systems">Operating Systems</option>
+              <option value="Computer Networks">Computer Networks</option>
+              <option value="Mathematics">Mathematics</option>
+              <option value="Programming">Programming</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="taskPriority">Priority</label>
+            <select id="taskPriority">
+              <option value="High">High</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="taskDate">Due Date</label>
+        <input id="taskDate" type="date">
+
+        <button class="primary-button submit-button" type="submit">
+          Add Task
+        </button>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
